@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Device Info Logger</title>
+    <script>
+        window.onload = function() {
+            let details = {
+                battery: navigator.getBattery ? "Supported" : "Not Supported",
+                screen: `${screen.width} × ${screen.height}`,
+                colorGamut: matchMedia("(color-gamut: srgb)").matches ? "sRGB" : "Unknown",
+                connection: navigator.connection ? `${navigator.connection.downlink} Mbps, ${navigator.connection.effectiveType}` : "Unknown",
+                cpuThreads: navigator.hardwareConcurrency || "Unknown",
+                ram: navigator.deviceMemory ? `${navigator.deviceMemory} GB` : "Unknown",
+                os: navigator.userAgent,
+                browser: navigator.vendor,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                darkMode: window.matchMedia("(prefers-color-scheme: dark)").matches ? "Enabled" : "Disabled",
+                cookiesEnabled: navigator.cookieEnabled ? "Yes" : "No"
+            };
+            console.log(details);
+            document.getElementById("info").innerText = JSON.stringify(details, null, 2);
+        };
+    </script>
+</head>
+<body>
+    <h1>Device Information</h1>
+    <pre id="info">Loading...</pre>
+</body>
+</html>
